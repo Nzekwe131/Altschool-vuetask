@@ -14,6 +14,7 @@
       v-for="(repo, index) in displayedRepos"
       :key="index"
       :repo="repo"
+      :id="repo.id"
     />
   </ul>
   <p v-if="!getAllRepos.length > 0 && !loading">
@@ -33,21 +34,16 @@
 </template>
 
 <script>
+import store from "../../store/index";
 import { ref, computed } from "vue";
-import { useStore } from "vuex";
-
 import RepoItem from "./RepoItem";
 import ReposPagination from "./ReposPagination";
 
 export default {
   name: "RepossHome",
   components: { ReposPagination, RepoItem },
-
   setup() {
-    const store = useStore();
     const loading = ref(false);
-   
-
     const fetchRepo = async () => {
       loading.value = true;
       const response = await fetch(
@@ -55,8 +51,6 @@ export default {
       );
 
       const responseBody = await response.json();
-      console.log(responseBody)
-
 
       const modifiedBody = responseBody.map((repo, index) => ({
         ...repo,

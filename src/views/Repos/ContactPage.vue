@@ -1,7 +1,7 @@
 <template>
   
   <div>
-    <button class="home-btn" @click.prevent="$router.push('/')">Go Home</button>
+    <button class="home-btn" @click.prevent="this.$router.push('/')">Go Home</button>
    </div>
 
   <div class="contact-page container">
