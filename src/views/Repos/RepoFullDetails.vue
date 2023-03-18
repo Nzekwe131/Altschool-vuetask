@@ -2,28 +2,28 @@
   
   <div>
     <button class="home-btn" @click.prevent="$router.go('-1')">Go back</button>
-   </div>
+  </div>
 
   <section class="container wrapper">
 
     <div class="wrapper-item">
       <label>Name</label>
-     <h1>{{ repo?.name}}</h1>
+     <h1>{{ repo.name}}</h1>
     </div>
 
     <div class="wrapper-item">
       <label>Branch</label>
-     <h1>{{ repo?.default_branch}}</h1>
+     <h1>{{ repo.default_branch}}</h1>
     </div>
 
     <div class="wrapper-item">
       <label>Visibility</label>
-     <h1>{{ repo?.visibility}}</h1>
+     <h1>{{ repo.visibility}}</h1>
     </div>
 
     <div class="wrapper-item">
       <label>ID</label>
-      <h5>{{ repo?.id }}</h5>
+      <h5>{{ repo.id }}</h5>
     </div>
 
  
@@ -32,22 +32,22 @@
 
 
 <script>
-import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { computed } from "vue";
+import { watchEffect, ref } from "vue";
 export default {
   setup() {
-    const store = useStore();
     const route = useRoute();
+    const repo = ref([]);
+    const name = route.params.name;
+    watchEffect( async () => {
+      const res =  await fetch(`https://api.github.com/repos/Nzekwe131/${name}`)
+      repo.value = await res.json();
+      console.log(repo.value)
+    });
 
-    const id = route.params.id;
-    const getAllRepos = computed(() => store.getters.getAllRepos);
-    const repo = computed(() =>
-      getAllRepos.value.find((repo) => {
-        return repo.newId === +id;
-      })
-    );
-    return { repo };
+    return{
+      repo
+    }
   },
 };
 </script>

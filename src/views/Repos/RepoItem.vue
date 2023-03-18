@@ -6,9 +6,8 @@
       <h1>{{ repo?.name }}</h1>
     </div>
     
-
     <div class="item">
-      <button @click="$router.push('/repos/' + repo.newId)" >
+      <button @click="$router.push('/repos/' + repo?.name)" >
         View full details
       </button>
     </div>
@@ -21,7 +20,7 @@
 <script>
 export default {
   name: "RepoItem",
-  props: ["repo"],
+  props: ["repo",'name'],
 };
 
 </script>

@@ -25,7 +25,7 @@ const routes = [
   },
 
   {
-    path: "/repos/:id",
+    path: "/repos/:name",
     component: () => import("../views/Repos/RepoFullDetails"),
   },
 
