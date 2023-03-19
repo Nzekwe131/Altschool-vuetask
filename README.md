@@ -2,6 +2,9 @@
 
 ## Project setup
 ```
+### my live link to the project
+https://github-fetchapi.netlify.app
+``` 
 npm install
 ```
 
