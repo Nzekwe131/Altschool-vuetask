@@ -1,8 +1,6 @@
 <template>
   
-  <div>
-    <button class="home-btn" @click.prevent="this.$router.push('/')">Go Home</button>
-   </div>
+  <NavigationBar />
 
   <div class="contact-page container">
   
@@ -21,7 +19,14 @@
     </form>
   </div>
 </template>
-
+<script>
+import NavigationBar from "@/components/NavigationBar.vue";
+export default {
+  components: {
+    NavigationBar,
+  },
+}
+</script>
 <style scoped>
 .contact-page {
   max-width: 600px;
@@ -72,15 +77,6 @@ button {
   padding: 7px 16px;
   margin:1rem; 
 }
-
-.container{
-    width:95%;
-    max-width:980px;
-    margin:0 auto;
-    height:100vh
-}
-
-
 button:hover {
   opacity: 0.7;
 }
