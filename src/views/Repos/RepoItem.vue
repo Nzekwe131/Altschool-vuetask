@@ -1,12 +1,12 @@
 <template>
   <main class="container">
 
-    <div class="item-wrapper">
-      <div  class="item">
+    <div class="row mx-5">
+      <div  class="col-7 text-start">
       <h1>{{ repo?.name }}</h1>
     </div>
     
-    <div class="item">
+    <div class="col-5">
       <button @click="$router.push('/repos/' + repo?.name)" >
         View full details
       </button>
@@ -27,18 +27,6 @@ export default {
 
 
 <style scoped>
-.container{
-    width:95%;
-    max-width:980px;
-    margin:0 auto;
-}
-
-.item-wrapper{
-  display: flex;
-  align-items: center; 
-  justify-content: space-between;
-   align-content: center;
-}
 
 button {
   background-color:#3E54AC;
@@ -54,14 +42,18 @@ button {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  button {
-  padding: 7px 15px;
-}
-
-.item{
-  font-size: 14px;
-}
+@media screen and (max-width: 768px) {
+  .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .row h1{
+    font-size: 20px !important;
+  }
+  .row button{
+    font-size: 12px !important;
+    padding: 5px 10px !important;
+  }
 }
 
 

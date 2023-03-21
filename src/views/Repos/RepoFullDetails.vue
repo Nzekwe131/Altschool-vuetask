@@ -1,105 +1,92 @@
 <template>
-  
+  <NavigationBar />
+
+  <section class="container mt-3 text-center">
+    
   <div>
-    <button class="home-btn" @click.prevent="$router.go('-1')">Go back</button>
-  </div>
+    <button class="home-btn" @click.prevent="$router.go(-1)">Go back</button>
+   </div>
 
-  <section class="container wrapper">
+    <h1 class="text-center text-secondary">Repository Details</h1>
+    <div class="row mt-3">
+      <div class="col-6">
+        <label>Name</label>
+        <h1>{{ repo.name }}</h1>
+      </div>
 
-    <div class="wrapper-item">
-      <label>Name</label>
-     <h1>{{ repo.name}}</h1>
+      <div class="col-6">
+        <label>Branch</label>
+        <h1>{{ repo.default_branch }}</h1>
+      </div>
+
+      <div class="col-6">
+        <label>Visibility</label>
+        <h1>{{ repo.visibility }}</h1>
+      </div>
+
+      <div class="col-6">
+        <label>ID</label>
+        <h1>{{ repo.id }}</h1>
+      </div>
     </div>
-
-    <div class="wrapper-item">
-      <label>Branch</label>
-     <h1>{{ repo.default_branch}}</h1>
-    </div>
-
-    <div class="wrapper-item">
-      <label>Visibility</label>
-     <h1>{{ repo.visibility}}</h1>
-    </div>
-
-    <div class="wrapper-item">
-      <label>ID</label>
-      <h5>{{ repo.id }}</h5>
-    </div>
-
- 
   </section>
 </template>
 
-
 <script>
+import NavigationBar from "@/components/NavigationBar.vue";
 import { useRoute } from "vue-router";
 import { watchEffect, ref } from "vue";
 export default {
+  components: {
+    NavigationBar,
+  },
   setup() {
     const route = useRoute();
     const repo = ref([]);
     const name = route.params.name;
-    watchEffect( async () => {
-      const res =  await fetch(`https://api.github.com/repos/Nzekwe131/${name}`)
+    watchEffect(async () => {
+      const res = await fetch(`https://api.github.com/repos/Nzekwe131/${name}`);
       repo.value = await res.json();
-      console.log(repo.value)
+      console.log(repo.value);
     });
 
-    return{
-      repo
-    }
+    return {
+      repo,
+    };
   },
 };
 </script>
 
-
 <style scoped>
-
-.container{
-    width:95%;
-    max-width:980px;
-    margin:0 auto;
-    height:100vh
+label {
+  font-size: 25px;
+  background-color: #3e54ac;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 150px;
+  color: #ecf2ff;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
-.wrapper{
-  display: flex;
-  justify-content: center;
-  align-items: space-between;
-  align-content: center;
-  flex-direction: column;
+.col-6 {
+  border-bottom: 1px solid #3e54ac;
+  padding: 1.2em;
 }
 
-button {
+
+button{
   background-color:#3E54AC;
   border: none;
   color: #ECF2FF;
   border-radius:5px;
-  padding: 7px 15px;
+  padding: 8px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 1em;
+  margin: 4px 2px;
   cursor: pointer;
 }
 
-
-.wrapper-item label{
-  font-size: 25px;
-background-color: #3E54AC;
-padding: 3px 7px;
-color: #ECF2FF;
-border-radius: 7px;
-}
-
-.wrapper-item{
-
-  border-bottom: 1px solid #3E54AC;;
-  padding: 1.2em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  align-content: center;
-}
 </style>

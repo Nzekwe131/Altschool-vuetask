@@ -1,13 +1,10 @@
 <template>
-  
-    <div>
-    <button class="home-btn" @click.prevent="$router.push('/')">Go Home</button>
-   </div>
-   <h1>list of my repos</h1>
-   
-   <div v-if="!getAllRepos.length > 0 && loading" class="loading">
-     <p>loading........</p>
-   </div>
+  <NavigationBar />
+  <h1>LIST OF MY REPOS</h1>
+
+  <div v-if="!getAllRepos.length > 0 && loading" class="loading">
+    <p>loading........</p>
+  </div>
 
   <ul v-if="getAllRepos.length > 0 && !loading">
     <RepoItem
@@ -19,21 +16,16 @@
   </ul>
   <p v-if="!getAllRepos.length > 0 && !loading">
     No Repo founds
-    <span>
-      <button @click="$router.push('/')">navigate home</button>
-    </span>
   </p>
   <ReposPagination
     v-if="getAllRepos.length > 0"
     :reposPerPage="reposPerPage"
     :totalRepos="getAllRepos.length"
-    @setNewPageNumber="setNewPageHandler"
-  />
-  
-   
+    @setNewPageNumber="setNewPageHandler" />
 </template>
 
 <script>
+import NavigationBar from "@/components/NavigationBar.vue";
 import store from "../../store/index";
 import { ref, computed } from "vue";
 import RepoItem from "./RepoItem";
@@ -41,7 +33,7 @@ import ReposPagination from "./ReposPagination";
 
 export default {
   name: "RepossHome",
-  components: { ReposPagination, RepoItem },
+  components: { ReposPagination, RepoItem, NavigationBar },
   setup() {
     const loading = ref(false);
     const fetchRepo = async () => {
@@ -55,7 +47,6 @@ export default {
       const modifiedBody = responseBody.map((repo, index) => ({
         ...repo,
         newId: index,
-    
       }));
       store.dispatch("fetchRepos", modifiedBody);
       loading.value = false;
@@ -89,24 +80,23 @@ export default {
 };
 </script>
 
-
 <style scoped>
- h1{
+h1 {
   text-align: center;
   color: gray;
   margin-bottom: 1em;
- }
- .loading{
+}
+.loading {
   height: 100vh;
   text-align: center;
   font-size: large;
- }
+}
 
 button {
-  background-color:#3E54AC;
+  background-color: #3e54ac;
   border: none;
-  color: #ECF2FF;
-  border-radius:5px;
+  color: #ecf2ff;
+  border-radius: 5px;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -116,9 +106,8 @@ button {
   cursor: pointer;
 }
 
-.home-btn{
+.home-btn {
   padding: 7px 16px;
-  margin:1rem; 
+  margin: 1rem;
 }
-
 </style>

@@ -88,7 +88,7 @@ export default {
 }
 
 .not__allowed{
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 
@@ -105,12 +105,11 @@ button {
   margin: 4px 2px;
   cursor: pointer;
 }
-
-
-.container{
-    width:95%;
-    max-width:980px;
-    margin:0 auto;
+@media screen and (max-width: 768px) {
+  .pagination-card {
+    padding: 0px !important;
+    margin-top: 0px !important;
+  }
 }
 
 
